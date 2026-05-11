@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Camera, Video, Star, Crown } from 'lucide-react';
-import CheckoutModal from './CheckoutModal';
 import tableImg from '../assets/tabela-preços.jpg';
 import espiadinhaImg from '../assets/pacote-espiadinha.png';
 import safadinhoImg from '../assets/pacote-safadinho.png';
@@ -16,7 +14,8 @@ const packages = [
     price: "9,90",
     icon: <Camera className="w-6 h-6" />,
     image: espiadinhaImg,
-    featured: false
+    featured: false,
+    link: "https://seguropagamentos.com.br/pack-espiadinha"
   },
   {
     name: "Pacote Safadinho",
@@ -25,7 +24,8 @@ const packages = [
     price: "19,90",
     icon: <Video className="w-6 h-6" />,
     image: safadinhoImg,
-    featured: false
+    featured: false,
+    link: "https://seguropagamentos.com.br/pack-safadinho"
   },
   {
     name: "Pacote Diabinho",
@@ -34,7 +34,8 @@ const packages = [
     price: "29,90",
     icon: <Star className="w-6 h-6" />,
     image: diabinhoImg,
-    featured: false
+    featured: false,
+    link: "https://seguropagamentos.com.br/pack-diabinho"
   },
   {
     name: "Pacote VIP",
@@ -43,27 +44,20 @@ const packages = [
     price: "49,90",
     icon: <Crown className="w-6 h-6" />,
     image: vipImg,
-    featured: true
+    featured: true,
+    link: "https://seguropagamentos.com.br/pack-VIP"
   }
 ];
 
 const Packages = () => {
-  const [selectedPackage, setSelectedPackage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const handlePurchase = (pkg) => {
-    setSelectedPackage(pkg);
-    setIsModalOpen(true);
+    if (pkg.link) {
+      window.location.href = pkg.link;
+    }
   };
 
   return (
     <section id="pacotes" className="py-20 px-4 bg-dark relative overflow-hidden">
-      <CheckoutModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        selectedPackage={selectedPackage}
-      />
-      
       {/* Background Decorative Image (Subtle) */}
       <div className="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none">
         <img src={tableImg} alt="" className="w-full h-full object-cover grayscale" />
