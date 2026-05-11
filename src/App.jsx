@@ -4,10 +4,12 @@ import Packages from './components/Packages';
 import Benefits from './components/Benefits';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
   return (
     <main className="bg-dark min-h-screen text-white">
+      <WhatsAppButton />
       <Hero />
       
       <Benefits />
