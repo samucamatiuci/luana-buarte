@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Camera, Video, Star, Crown } from 'lucide-react';
+import CheckoutModal from './CheckoutModal';
 import tableImg from '../assets/tabela-preços.jpg';
 import espiadinhaImg from '../assets/pacote-espiadinha.png';
 import safadinhoImg from '../assets/pacote-safadinho.png';
@@ -46,8 +48,22 @@ const packages = [
 ];
 
 const Packages = () => {
+  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handlePurchase = (pkg) => {
+    setSelectedPackage(pkg);
+    setIsModalOpen(true);
+  };
+
   return (
     <section id="pacotes" className="py-20 px-4 bg-dark relative overflow-hidden">
+      <CheckoutModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        selectedPackage={selectedPackage}
+      />
+      
       {/* Background Decorative Image (Subtle) */}
       <div className="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none">
         <img src={tableImg} alt="" className="w-full h-full object-cover grayscale" />
@@ -111,7 +127,10 @@ const Packages = () => {
                   <span className="text-xs text-gray-400 font-medium">R$</span>
                   <span className="text-3xl font-bold ml-1">{pkg.price}</span>
                 </div>
-                <button className={`w-full py-3 rounded-xl font-bold transition-all text-sm ${pkg.featured ? 'bg-neonPink hover:bg-neonPink/80 shadow-neon' : 'bg-white/10 hover:bg-white/20'}`}>
+                <button 
+                  onClick={() => handlePurchase(pkg)}
+                  className={`w-full py-3 rounded-xl font-bold transition-all text-sm ${pkg.featured ? 'bg-neonPink hover:bg-neonPink/80 shadow-neon' : 'bg-white/10 hover:bg-white/20'}`}
+                >
                   Assinar Agora
                 </button>
               </div>
