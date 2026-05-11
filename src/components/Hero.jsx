@@ -3,17 +3,17 @@ import bannerImg from '../assets/banner.png';
 
 const Hero = () => {
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[80vh] md:h-screen w-full flex items-center justify-center overflow-hidden pt-20 md:pt-0">
       {/* Background Image with Overlay */}
       <div 
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 bg-dark"
         style={{
           backgroundImage: `url(${bannerImg})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center top',
         }}
       >
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px]"></div>
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px] md:bg-black/70"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
       </div>
 

@@ -1,24 +1,27 @@
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
+import caioImg from '../assets/caio.jpg';
+import carlosImg from '../assets/carlos.jpg';
+import lourranImg from '../assets/lourran.jpg';
 
 const testimonials = [
   {
     name: "Ricardo S.",
     comment: "Simplesmente incrível. O conteúdo é de altíssima qualidade e o suporte foi super rápido.",
     stars: 5,
-    img: "https://i.pravatar.cc/150?u=a042581f4e29026704d"
+    img: caioImg
   },
   {
     name: "Marcos V.",
     comment: "Melhor investimento que já fiz. O pacote VIP realmente vale cada centavo. Recomendo muito!",
     stars: 5,
-    img: "https://i.pravatar.cc/150?u=a042581f4e29026704c"
+    img: carlosImg
   },
   {
     name: "Julio C.",
     comment: "Privacidade total e entrega instantânea. Gostei muito da facilidade de acesso no mobile.",
     stars: 5,
-    img: "https://i.pravatar.cc/150?u=a042581f4e29026704b"
+    img: lourranImg
   }
 ];
 
