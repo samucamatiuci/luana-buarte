@@ -7,7 +7,8 @@ const CheckoutModal = ({ isOpen, onClose, selectedPackage }) => {
   const [formData] = useState({ 
     name: 'Comprador Luana Buarte', 
     email: 'vendas@luanabuarte.com', 
-    document: '000.000.000-00' 
+    document: '111.444.777-35', // CPF válido (checksum)
+    phone: '11999999999'
   });
   const [paymentData, setPaymentData] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
@@ -46,7 +47,8 @@ const CheckoutModal = ({ isOpen, onClose, selectedPackage }) => {
           buyer: {
             name: formData.name,
             email: formData.email,
-            document: formData.document.replace(/\D/g, '')
+            document: formData.document.replace(/\D/g, ''),
+            phone: formData.phone.replace(/\D/g, '')
           },
           product: {
             id: `prod_${selectedPackage.name.toLowerCase().replace(/\s/g, '_')}`,
