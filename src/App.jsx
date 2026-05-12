@@ -5,8 +5,18 @@ import Benefits from './components/Benefits';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import CheckoutModal from './components/CheckoutModal';
+import { useState } from 'react';
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState(null);
+
+  const openCheckout = (pkg) => {
+    setSelectedPackage(pkg);
+    setIsModalOpen(true);
+  };
+
   return (
     <main className="bg-dark min-h-screen text-white">
       <WhatsAppButton />
@@ -14,7 +24,7 @@ function App() {
       
       <Benefits />
       
-      <Packages />
+      <Packages onSelectPackage={openCheckout} />
       
       <Testimonials />
 
@@ -42,6 +52,10 @@ function App() {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => openCheckout({
+              name: "Pacote VIP",
+              price: "49,90"
+            })}
             className="btn-neon text-xl px-12 py-5"
           >
             Desbloquear agora
@@ -50,6 +64,12 @@ function App() {
       </section>
 
       <Footer />
+
+      <CheckoutModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        selectedPackage={selectedPackage} 
+      />
     </main>
   );
 }

@@ -182,3 +182,49 @@
     border-right-color: var(--border);
   }
 }
+
+/* Custom Styles for Responsive Banner */
+.hero-banner {
+  background-image: url('./assets/banner-mobile.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (min-width: 768px) {
+  .hero-banner {
+    background-image: url('./assets/banner.png');
+    background-size: cover;
+  }
+}
+
+/* Glassmorphism & Neon Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.neon-text {
+  color: #ff1493;
+  text-shadow: 0 0 10px rgba(255, 20, 147, 0.5), 0 0 20px rgba(255, 20, 147, 0.3);
+}
+
+.btn-neon {
+  background: #ff1493;
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.4);
+}
+
+.btn-neon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 20, 147, 0.6);
+}
+
+.shadow-neon {
+  box-shadow: 0 0 30px rgba(255, 20, 147, 0.2);
+}

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   const token = process.env.BUCK_TOKEN;
-  const userAgent = process.env.BUCK_USER_AGENT || 'BuckPay-Integration';
+  const userAgent = process.env.BUCK_USER_AGENT || 'Buckpay API';
 
   try {
     const response = await fetch(`https://api.realtechdev.com.br/v1/transactions/external_id/${external_id}`, {

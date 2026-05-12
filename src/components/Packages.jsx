@@ -49,11 +49,9 @@ const packages = [
   }
 ];
 
-const Packages = () => {
+const Packages = ({ onSelectPackage }) => {
   const handlePurchase = (pkg) => {
-    if (pkg.link) {
-      window.location.href = pkg.link;
-    }
+    onSelectPackage(pkg);
   };
 
   return (

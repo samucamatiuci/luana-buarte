@@ -1,16 +1,39 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Copy, CheckCircle2, Loader2, QrCode } from 'lucide-react';
+import { X, Copy, CheckCircle2, Loader2, MessageCircle } from 'lucide-react';
 
 const CheckoutModal = ({ isOpen, onClose, selectedPackage }) => {
-  const [step, setStep] = useState('form'); // form, loading, pix, success
-  const [formData, setFormData] = useState({ name: '', email: '', document: '' });
+  const [step, setStep] = useState('loading'); // Iniciar em loading para automático
+  const [formData] = useState({ 
+    name: 'Comprador Luana Buarte', 
+    email: 'vendas@luanabuarte.com', 
+    document: '000.000.000-00' 
+  });
   const [paymentData, setPaymentData] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleCreatePayment = async (e) => {
-    e.preventDefault();
+  // Efeito para resetar o estado quando o modal fecha
+  useEffect(() => {
+    if (!isOpen) {
+      setStep('loading');
+      setPaymentData(null);
+      setError(null);
+    }
+  }, [isOpen]);
+
+  // Efeito para disparar o pagamento assim que o modal abre
+  useEffect(() => {
+    if (isOpen && selectedPackage && !paymentData && step === 'loading') {
+      const timer = setTimeout(() => {
+        handleCreatePayment();
+      }, 500); // Pequeno delay para efeito visual
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, selectedPackage, paymentData, step]);
+
+  const handleCreatePayment = async () => {
+    if (!selectedPackage) return;
     setStep('loading');
     setError(null);
 
@@ -98,47 +121,16 @@ const CheckoutModal = ({ isOpen, onClose, selectedPackage }) => {
           </div>
 
           <div className="p-6">
-            {step === 'form' && (
-              <form onSubmit={handleCreatePayment} className="space-y-4">
-                <div>
-                  <label className="block text-sm text-gray-400 mb-1">Nome Completo</label>
-                  <input 
-                    required
-                    type="text"
-                    className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:border-neon outline-none transition-colors"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm text-gray-400 mb-1">E-mail</label>
-                  <input 
-                    required
-                    type="email"
-                    className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:border-neon outline-none transition-colors"
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm text-gray-400 mb-1">CPF (Obrigatório para PIX)</label>
-                  <input 
-                    required
-                    type="text"
-                    placeholder="000.000.000-00"
-                    className="w-full bg-black border border-white/10 rounded-lg p-3 text-white focus:border-neon outline-none transition-colors"
-                    value={formData.document}
-                    onChange={(e) => setFormData({...formData, document: e.target.value})}
-                  />
-                </div>
-                {error && <p className="text-red-500 text-sm">{error}</p>}
+            {step === 'form' && error && (
+              <div className="text-center py-4">
+                <p className="text-red-500 text-sm mb-4">{error}</p>
                 <button 
-                  type="submit"
-                  className="w-full bg-neon text-white font-bold py-4 rounded-xl hover:shadow-[0_0_20px_#ff1493] transition-all"
+                  onClick={() => handleCreatePayment()}
+                  className="bg-neon text-white px-6 py-2 rounded-lg"
                 >
-                  Gerar QR Code PIX - R$ {selectedPackage.price}
+                  Tentar Novamente
                 </button>
-              </form>
+              </div>
             )}
 
             {step === 'loading' && (
@@ -184,17 +176,28 @@ const CheckoutModal = ({ isOpen, onClose, selectedPackage }) => {
             )}
 
             {step === 'success' && (
-              <div className="text-center py-12 space-y-6">
+              <div className="text-center py-6 space-y-6">
                 <div className="bg-green-500/20 text-green-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-green-500 shadow-[0_0_20px_rgba(34,197,94,0.3)]">
                   <CheckCircle2 className="w-12 h-12" />
                 </div>
-                <h4 className="text-2xl font-bold text-white">Acesso Liberado!</h4>
-                <p className="text-gray-400">Seu pagamento foi confirmado com sucesso. Você receberá o acesso por e-mail em instantes.</p>
+                <h4 className="text-2xl font-bold text-white">Pagamento Confirmado!</h4>
+                <p className="text-gray-400">Seu acesso foi liberado. Clique no botão abaixo para receber o conteúdo no WhatsApp.</p>
+                
+                <a 
+                  href={`https://wa.me/5519987164590?text=${encodeURIComponent(`🔥 Oi! Acabei de fazer o pagamento do ${selectedPackage?.name} e quero meu acesso!`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-3 w-full bg-[#25d366] text-white font-bold py-5 rounded-2xl hover:shadow-[0_0_25px_rgba(37,211,102,0.4)] transition-all text-lg"
+                >
+                  <MessageCircle className="w-6 h-6 fill-white" />
+                  RECEBER CONTEÚDO AGORA
+                </a>
+
                 <button 
                   onClick={onClose}
-                  className="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-200 transition-all"
+                  className="text-gray-500 hover:text-white text-sm transition-colors"
                 >
-                  Fechar
+                  Fechar janela
                 </button>
               </div>
             )}

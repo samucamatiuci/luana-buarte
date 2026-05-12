@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
   const { amount, buyer, product, offer } = req.body;
   const token = process.env.BUCK_TOKEN;
-  const userAgent = process.env.BUCK_USER_AGENT || 'BuckPay-Integration';
+  const userAgent = process.env.BUCK_USER_AGENT || 'Buckpay API';
 
   // Gerar ID externo único
   const external_id = `order_${Date.now()}_${Math.floor(Math.random() * 1000)}`;

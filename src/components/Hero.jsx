@@ -6,10 +6,7 @@ const Hero = () => {
     <section className="relative min-h-[70vh] md:h-screen w-full flex items-center justify-center overflow-hidden pt-10 md:pt-0 bg-dark">
       {/* Background Image with Overlay */}
       <div 
-        className="absolute inset-0 z-0 bg-dark bg-no-repeat bg-center bg-contain md:bg-cover"
-        style={{
-          backgroundImage: `url(${bannerImg})`,
-        }}
+        className="absolute inset-0 z-0 bg-dark hero-banner"
       >
         <div className="absolute inset-0 bg-black/40 md:bg-black/60 backdrop-blur-[1px]"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
